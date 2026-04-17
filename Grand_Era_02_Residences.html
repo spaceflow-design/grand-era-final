@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grand Era — Residences</title>
+<style>
+@font-face{font-family:'BROLIMO';src:url('../brand-graphic/Fonts/BROLIMO-Light.otf') format('opentype');font-weight:300}
+@font-face{font-family:'BROLIMO';src:url('../brand-graphic/Fonts/BROLIMO-Regular.otf') format('opentype');font-weight:400}
+@font-face{font-family:'BROLIMO';src:url('../brand-graphic/Fonts/BROLIMO-DemiBold.otf') format('opentype');font-weight:600}
+@font-face{font-family:'BROLIMO';src:url('../brand-graphic/Fonts/BROLIMO-Bold.otf') format('opentype');font-weight:700}
+@font-face{font-family:'SVN-Aeonik';src:url('../brand-graphic/Fonts/SVN-Aeonik-Light.otf') format('opentype');font-weight:300}
+@font-face{font-family:'SVN-Aeonik';src:url('../brand-graphic/Fonts/SVN-Aeonik-Regular.otf') format('opentype');font-weight:400}
+@font-face{font-family:'SVN-Aeonik';src:url('../brand-graphic/Fonts/SVN-Aeonik-Medium.otf') format('opentype');font-weight:500}
+@font-face{font-family:'SVN-Aeonik';src:url('../brand-graphic/Fonts/SVN-Aeonik-Bold.otf') format('opentype');font-weight:700}
+:root{--tanned:#3C2415;--earth:#7B5744;--rich:#1A1813;--sienna:#B08551;--rosy:#C1949A;--beige:#F5F0EB;--beige-lt:#FAF8F5;--white:#FFF;--display:'BROLIMO',Georgia,serif;--body:'SVN-Aeonik',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);color:var(--rich);background:var(--white);-webkit-font-smoothing:antialiased}
+/* TEXT REVEAL ANIMATIONS (Diplomat-style) */
+.reveal-words{display:inline-block}
+.reveal-words .word-wrap{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.reveal-words .word{display:inline-block;transform:translateY(110%);opacity:0;transition:transform 1.1s cubic-bezier(.2,.9,.22,1),opacity 1.1s cubic-bezier(.2,.9,.22,1)}
+.reveal-words.is-visible .word{transform:translateY(0);opacity:1}
+.reveal-up{opacity:0;transform:translateY(24px);filter:blur(4px);transition:opacity 1.2s cubic-bezier(.2,.9,.22,1),transform 1.2s cubic-bezier(.2,.9,.22,1),filter 1s ease-out}
+.reveal-up.is-visible{opacity:1;transform:translateY(0);filter:blur(0)}
+.reveal-line{transform:scaleX(0);transform-origin:left center;transition:transform 1.2s cubic-bezier(.7,0,.3,1)}
+.reveal-line.is-visible{transform:scaleX(1)}
+.reveal-image{opacity:0;transform:scale(1.06);transition:opacity 1.4s cubic-bezier(.2,.9,.22,1),transform 1.6s cubic-bezier(.2,.9,.22,1)}
+.reveal-image.is-visible{opacity:1;transform:scale(1)}
+@media (prefers-reduced-motion: reduce){.reveal-words .word,.reveal-up,.reveal-line,.reveal-image{transform:none!important;opacity:1!important;filter:none!important;transition:none!important}}
+.wf{position:fixed;bottom:16px;right:16px;z-index:1000;background:rgba(26,24,19,.85);color:#fff;font-size:11px;padding:6px 16px;border-radius:20px;letter-spacing:.5px;backdrop-filter:blur(8px)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:24px;width:auto}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--rich);text-decoration:none;font-size:13px;letter-spacing:.5px;opacity:.6;transition:opacity .3s}
+.nav-links a:hover,.nav-links a.active{opacity:1}
+.nav-cta{border:1px solid var(--earth);color:var(--earth);background:none;padding:8px 20px;font-size:12px;letter-spacing:1px;cursor:pointer;font-family:var(--body);text-decoration:none;display:inline-block}
+
+/* PAGE HERO */
+.page-hero{height:50vh;display:flex;align-items:flex-end;padding:0 48px 64px;background:var(--tanned);position:relative;margin-top:56px}
+.page-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(60,36,21,.2) 0%,rgba(60,36,21,.7) 100%)}
+.page-hero-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.2);letter-spacing:2px}
+.page-hero-content{position:relative;z-index:1}
+.page-hero-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sienna);margin-bottom:12px}
+.page-hero-title{font-family:var(--display);font-size:52px;font-weight:400;color:#fff;line-height:1.1}
+
+/* SECTIONS */
+.section{padding:100px 48px}
+.section-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sienna);margin-bottom:16px;font-weight:500}
+.section-heading{font-family:var(--display);font-size:38px;font-weight:500;line-height:1.2;margin-bottom:24px;letter-spacing:-0.02em}
+.section-body{font-size:15px;line-height:1.8;color:rgba(26,24,19,.65);max-width:600px}
+
+/* UNIT TYPE SECTION */
+.unit-section{border-bottom:1px solid rgba(26,24,19,.06)}
+.unit-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.unit-plan-placeholder{aspect-ratio:4/3;background:var(--beige);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(26,24,19,.2);letter-spacing:1px;border:1px dashed rgba(26,24,19,.1)}
+.unit-info{padding-top:8px}
+.unit-type-title{font-family:var(--display);font-size:36px;font-weight:400;margin-bottom:8px}
+.unit-subtitle{font-size:14px;color:rgba(26,24,19,.5);margin-bottom:32px}
+
+/* SPEC TABLE */
+.spec-table{width:100%;border-collapse:collapse;margin-bottom:32px}
+.spec-table tr{border-bottom:1px solid rgba(26,24,19,.06)}
+.spec-table td{padding:14px 0;font-size:14px;vertical-align:top}
+.spec-table td:first-child{color:rgba(26,24,19,.45);width:140px}
+.spec-table td:last-child{font-weight:500}
+
+/* UNIT CARDS */
+.unit-cards{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap}
+.unit-card{padding:12px 16px;border:1px solid rgba(26,24,19,.1);border-radius:8px;cursor:pointer;transition:all .3s;font-size:13px;background:var(--white)}
+.unit-card:hover,.unit-card.active{border-color:var(--earth);background:var(--earth);color:#fff}
+
+/* RENDER GALLERY */
+.render-row{display:flex;gap:8px;margin-top:24px}
+.render-thumb{flex:1;aspect-ratio:3/2;background:var(--beige);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(26,24,19,.2);cursor:pointer;transition:opacity .3s;border:1px solid rgba(26,24,19,.05)}
+.render-thumb:hover{opacity:.8}
+
+/* FLOOR PLANS SECTION */
+.floorplan-section{background:var(--beige)}
+.floorplan-container{max-width:1200px;margin:0 auto}
+.floorplan-tabs{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.fp-tab{padding:10px 20px;border:1px solid rgba(26,24,19,.1);border-radius:6px;background:var(--white);cursor:pointer;font-size:13px;font-family:var(--body);transition:all .3s}
+.fp-tab:hover,.fp-tab.active{border-color:var(--earth);background:var(--earth);color:#fff}
+.floorplan-viewer{aspect-ratio:16/9;background:var(--white);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(26,24,19,.2);letter-spacing:1px;border:1px solid rgba(26,24,19,.06);position:relative;overflow:hidden}
+.fp-zoom-hint{position:absolute;bottom:16px;right:16px;font-size:11px;color:rgba(26,24,19,.3);background:rgba(255,255,255,.8);padding:6px 12px;border-radius:4px}
+
+/* CTA BANNER */
+.cta-banner{background:var(--tanned);padding:80px 48px;text-align:center}
+.cta-banner .section-heading{color:#fff}
+.cta-banner .section-body{color:rgba(255,255,255,.6);margin:0 auto 32px}
+.cta-btn{display:inline-block;padding:16px 48px;border:1px solid rgba(255,255,255,.4);color:#fff;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-family:var(--body);transition:all .3s;background:none;cursor:pointer}
+.cta-btn:hover{background:rgba(255,255,255,.1)}
+
+/* FOOTER */
+.footer{background:var(--tanned);color:rgba(255,255,255,.6);padding:64px 48px 32px}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-logo{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:4px;color:#fff;text-transform:uppercase;margin-bottom:16px}
+.footer-tagline{font-family:var(--display);font-size:14px;font-style:italic;color:rgba(255,255,255,.4);line-height:1.6}
+.footer-heading{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px}
+.footer-bottom{max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3)}
+
+@media(max-width:768px){
+.section{padding:64px 24px}.nav{padding:14px 24px}.nav-links{display:none}
+.unit-grid{grid-template-columns:1fr;gap:32px}.footer-grid{grid-template-columns:1fr;gap:32px}
+.page-hero{height:40vh;padding:0 24px 40px}.page-hero-title{font-size:36px}
+}
+</style>
+</head>
+<body>
+<div class="wf">WIREFRAME — Residences</div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="../brand-graphic/Grand Era_Logo (Full color).png" alt="Grand Era"></a>
+  <ul class="nav-links">
+    <li><a href="Grand_Era_03_Amenities.html">Tiện ích</a></li>
+    <li><a href="Grand_Era_02_Residences.html" class="active" style="opacity:1;border-bottom:2px solid var(--earth);padding-bottom:4px">Căn hộ</a></li>
+    <li><a href="Grand_Era_04_Connect.html">Vị trí</a></li>
+    <li><a href="index.html#gallery">Thư viện</a></li>
+  </ul>
+  <a href="Grand_Era_05_Contact.html" class="nav-cta" style="text-decoration:none">Liên hệ</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-placeholder reveal-image" style="background-image:url('project-img/entrance-main-night.jpg');background-size:cover;background-position:center"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-label">Residences</div>
+    <div class="page-hero-title">Không gian sống<br>đẳng cấp</div>
+  </div>
+</section>
+
+<!-- S1: TWO-BEDROOM -->
+<section class="section unit-section">
+  <div class="unit-grid">
+    <div class="unit-plan-placeholder" style="background-image:url('project-img/sky-garden.jpg');background-size:cover;background-position:center"></div>
+    <div class="unit-info">
+      <div class="section-label">Two-Bedroom Apartment</div>
+      <div class="unit-type-title">Căn hộ 2 phòng ngủ</div>
+      <div class="unit-subtitle">Không gian lý tưởng cho cặp đôi trẻ và gia đình nhỏ</div>
+
+      <div class="unit-cards">
+        <div class="unit-card active">CH1 · 75.3 m²</div>
+        <div class="unit-card">CH2 · 84.16 m²</div>
+        <div class="unit-card">CH3 · 87.31 m²</div>
+        <div class="unit-card">CH4 · 90.82 m²</div>
+      </div>
+
+      <table class="spec-table">
+        <tr><td>Diện tích</td><td>75.3 — 90.82 m²</td></tr>
+        <tr><td>Phòng ngủ</td><td>2 phòng</td></tr>
+        <tr><td>Phòng tắm</td><td>2 phòng</td></tr>
+        <tr><td>Logia</td><td>1 — 2</td></tr>
+        <tr><td>Hướng</td><td>Đông Nam / Tây Bắc</td></tr>
+      </table>
+
+      <div class="render-row">
+        <div class="render-thumb" style="background-image:url('project-img/lobby-side-day.jpg');background-size:cover;background-position:center"></div>
+        <div class="render-thumb" style="background-image:url('project-img/sky-garden.jpg');background-size:cover;background-position:center"></div>
+        <div class="render-thumb" style="background-image:url('project-img/pathway.jpg');background-size:cover;background-position:center"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S2: THREE-BEDROOM -->
+<section class="section unit-section" style="background:var(--beige-lt)">
+  <div class="unit-grid">
+    <div class="unit-info">
+      <div class="section-label">Three-Bedroom Apartment</div>
+      <div class="unit-type-title">Căn hộ 3 phòng ngủ</div>
+      <div class="unit-subtitle">Rộng rãi, thoáng đãng cho gia đình đa thế hệ</div>
+
+      <div class="unit-cards">
+        <div class="unit-card active">CH5 · 111.91 m²</div>
+        <div class="unit-card">CH6 · 91.36 m²</div>
+        <div class="unit-card">CH7 · 92.92 m²</div>
+      </div>
+
+      <table class="spec-table">
+        <tr><td>Diện tích</td><td>91.36 — 111.91 m²</td></tr>
+        <tr><td>Phòng ngủ</td><td>3 phòng</td></tr>
+        <tr><td>Phòng tắm</td><td>2 phòng</td></tr>
+        <tr><td>Logia</td><td>2</td></tr>
+        <tr><td>Hướng</td><td>Đông Nam / Tây Nam</td></tr>
+      </table>
+
+      <div class="render-row">
+        <div class="render-thumb" style="background-image:url('project-img/entrance-day.jpg');background-size:cover;background-position:center"></div>
+        <div class="render-thumb" style="background-image:url('project-img/lobby-side-day.jpg');background-size:cover;background-position:center"></div>
+        <div class="render-thumb" style="background-image:url('project-img/pathway.jpg');background-size:cover;background-position:center"></div>
+      </div>
+    </div>
+    <div class="unit-plan-placeholder" style="background-image:url('project-img/entrance-day-waves.jpg');background-size:cover;background-position:center"></div>
+  </div>
+</section>
+
+<!-- S3: DUPLEX -->
+<section class="section unit-section">
+  <div class="unit-grid">
+    <div class="unit-plan-placeholder" style="aspect-ratio:3/4;background-image:url('project-img/rooftop-day.jpg');background-size:cover;background-position:center"></div>
+    <div class="unit-info">
+      <div class="section-label">Duplex Apartment</div>
+      <div class="unit-type-title">Duplex Penthouse</div>
+      <div class="unit-subtitle">Đỉnh cao của cuộc sống thượng lưu — sky-level living</div>
+
+      <div class="unit-cards">
+        <div class="unit-card active">DL1 · 215.79 m²</div>
+      </div>
+
+      <table class="spec-table">
+        <tr><td>Diện tích</td><td>215.79 m²</td></tr>
+        <tr><td>Tầng</td><td>2 tầng (duplex)</td></tr>
+        <tr><td>Phòng ngủ</td><td>4 phòng</td></tr>
+        <tr><td>Phòng tắm</td><td>3 phòng</td></tr>
+        <tr><td>Đặc biệt</td><td>Sân thượng riêng, tầm nhìn panorama</td></tr>
+      </table>
+
+      <div class="render-row">
+        <div class="render-thumb" style="background-image:url('project-img/rooftop-aerial.jpg');background-size:cover;background-position:center"></div>
+        <div class="render-thumb" style="background-image:url('project-img/entrance-night-waves.jpg');background-size:cover;background-position:center"></div>
+        <div class="render-thumb" style="background-image:url('project-img/aerial-night.jpg');background-size:cover;background-position:center"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4: FLOOR PLANS -->
+<section class="section floorplan-section">
+  <div class="floorplan-container">
+    <div class="section-label">Floor Plans</div>
+    <div class="section-heading">Mặt bằng tầng điển hình</div>
+    <div class="section-body" style="margin-bottom:40px">Chọn tầng để xem mặt bằng tổng thể và vị trí từng căn hộ trong tòa nhà.</div>
+
+    <div class="floorplan-tabs">
+      <div class="fp-tab">Tầng 11–15</div>
+      <div class="fp-tab active">Tầng 16–31</div>
+      <div class="fp-tab">Tầng 32–40</div>
+      <div class="fp-tab">Tầng 41–45</div>
+    </div>
+
+    <div class="floorplan-viewer" style="background-image:url('project-img/aerial-day.jpg');background-size:cover;background-position:center">
+      <div class="fp-zoom-hint">Scroll to zoom · Drag to pan</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <div class="section-heading">Đặt lịch tham quan căn hộ mẫu</div>
+  <div class="section-body">Trải nghiệm không gian sống thực tế tại showroom Grand Era 9 Phạm Hùng</div>
+  <a href="Grand_Era_05_Contact.html" class="cta-btn">Đặt lịch ngay</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo"><img src="../brand-graphic/Grand Era_Logo (White).png" alt="Grand Era" style="height:28px;width:auto"></div><div class="footer-tagline">Kiến Tạo Kỷ Nguyên<br>Sống Bền Vững</div></div>
+    <div><div class="footer-heading">Khám phá</div><ul class="footer-links"><li><a href="index.html">Dự án</a></li><li><a href="Grand_Era_02_Residences.html">Căn hộ</a></li><li><a href="Grand_Era_03_Amenities.html">Tiện ích</a></li><li><a href="Grand_Era_04_Connect.html">Vị trí</a></li></ul></div>
+    <div><div class="footer-heading">Liên hệ</div><ul class="footer-links"><li><a href="#">1900 xxxx</a></li><li><a href="#"><span class="__cf_email__" data-cfemail="8fe6e1e9e0cfe8fdeee1ebeafdeea1f9e1">[email&#160;protected]</span></a></li><li><a href="#">Zalo</a></li></ul></div>
+    <div><div class="footer-heading">Pháp lý</div><ul class="footer-links"><li><a href="#">Chính sách bảo mật</a></li><li><a href="#">Điều khoản</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Grand Era</span></div>
+</footer>
+
+<script>
+// Nav scroll effect
+(function(){
+  const nav = document.getElementById('nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    });
+  }
+})();
+
+// Text reveal animations
+function splitIntoWords(el){
+  if (el.dataset.split === '1') return;
+  el.dataset.split = '1';
+  const frag = document.createDocumentFragment();
+  el.childNodes.forEach(node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if (part.trim() === '') {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const wrap = document.createElement('span');
+          wrap.className = 'word-wrap';
+          const word = document.createElement('span');
+          word.className = 'word';
+          word.textContent = part;
+          wrap.appendChild(word);
+          frag.appendChild(wrap);
+        }
+      });
+    } else if (node.nodeName === 'BR') {
+      frag.appendChild(node.cloneNode());
+    } else {
+      frag.appendChild(node.cloneNode(true));
+    }
+  });
+  el.innerHTML = '';
+  el.appendChild(frag);
+  el.classList.add('reveal-words');
+}
+
+document.querySelectorAll('.section-heading, .page-hero-title, .hero-logo, .hero-tagline').forEach(splitIntoWords);
+document.querySelectorAll('.section-label, .section-body, .page-hero-label, .hero-sub').forEach(el => el.classList.add('reveal-up'));
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    if (el.classList.contains('reveal-words')) {
+      el.querySelectorAll('.word').forEach((w, i) => { w.style.transitionDelay = (i * 0.06) + 's'; });
+    }
+    if (el.classList.contains('reveal-up')) {
+      el.style.transitionDelay = '0.15s';
+    }
+    el.classList.add('is-visible');
+    revealObserver.unobserve(el);
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+document.querySelectorAll('.reveal-words, .reveal-up, .reveal-image').forEach(el => revealObserver.observe(el));
+
+// Trigger page-hero reveals on load (above the fold)
+requestAnimationFrame(() => {
+  document.querySelectorAll('.page-hero .reveal-words, .page-hero .reveal-up, .page-hero .reveal-image').forEach(el => {
+    if (el.classList.contains('reveal-words')) {
+      el.querySelectorAll('.word').forEach((w, i) => { w.style.transitionDelay = (0.2 + i * 0.07) + 's'; });
+    } else if (el.classList.contains('reveal-up')) {
+      el.style.transitionDelay = '0.6s';
+    }
+    el.classList.add('is-visible');
+    revealObserver.unobserve(el);
+  });
+});
+</script>
+</body>
+</html>
