@@ -305,13 +305,13 @@ body {
 }
 
 /* ===== AMENITIES ===== */
-.amenities { background: var(--beige); position: relative; overflow: hidden; padding-bottom: 340px; }
+.amenities { background: var(--beige); position: relative; overflow: hidden; }
 .amenities::after {
-  content: ''; position: absolute; bottom: 40px; left: 50%;
-  transform: translateX(-50%);
-  width: 340px; height: 340px;
+  content: ''; position: absolute; bottom: -40px; right: -40px;
+  width: 280px; height: 280px;
   background: url('../brand-graphic/pattern-in-white.png') no-repeat center / contain;
   pointer-events: none;
+  z-index: 0;
 }
 .amenities-header, .amenities-scroll { position: relative; z-index: 1; }
 .amenities-header {
@@ -391,11 +391,13 @@ body {
 /* ===== CONNECTIVITY ===== */
 .connectivity { background: var(--beige-light); position: relative; overflow: hidden; }
 .connectivity::after {
-  content: ''; position: absolute; bottom: -30px; left: -30px;
-  width: 400px; height: 400px;
+  content: ''; position: absolute; bottom: -40px; left: -40px;
+  width: 260px; height: 260px;
   background: url('../brand-graphic/pattern-in-white.png') no-repeat center / contain;
   pointer-events: none;
+  z-index: 0;
 }
+.connectivity > * { position: relative; z-index: 1; }
 .conn-grid {
   max-width: 1200px; margin: 0 auto;
   display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: start;
@@ -567,23 +569,10 @@ body {
   .section-heading { font-size: 32px; }
   .badges { flex-direction: column; }
 
-  /* Pattern responsive: connectivity — hide entirely on mobile (overlaps text) */
-  .connectivity::after { display: none; }
-
-  /* Pattern responsive: footer — hide entirely on mobile */
-  .footer::after { display: none; }
-
-  /* Pattern responsive: amenities — small corner flourish below cards, no dedicated zone */
-  .amenities { padding-bottom: 80px; }
-  .amenities::after {
-    width: 120px; height: 120px;
-    bottom: -20px; right: -20px;
-    top: auto; left: auto; transform: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .amenities::after { width: 100px; height: 100px; bottom: -16px; right: -16px; }
+  /* Pattern responsive: hide all patterns on mobile (keep layout clean) */
+  .connectivity::after,
+  .footer::after,
+  .amenities::after { display: none; }
 }
 </style>
 </head>
