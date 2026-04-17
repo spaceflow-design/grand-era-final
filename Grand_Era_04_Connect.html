@@ -97,8 +97,24 @@ body{font-family:var(--body);color:var(--rich);background:var(--white);-webkit-f
 .footer-links{list-style:none}.footer-links li{margin-bottom:10px}.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px}
 .footer-bottom{max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3)}
 
-@media(max-width:768px){
-.section{padding:64px 24px}.nav{padding:14px 24px}.nav-links{display:none}
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;width:40px;height:40px;padding:0;position:relative;z-index:2}
+.nav-toggle span{display:block;width:22px;height:1.5px;background:var(--rich);margin:5px auto;transition:transform .4s,opacity .3s}
+.nav-toggle.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-toggle.is-open span:nth-child(2){opacity:0}
+.nav-toggle.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.nav-mobile-panel{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--tanned);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:80px 32px 40px;z-index:9998;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease,visibility .4s ease}
+.nav-mobile-panel.is-open{opacity:1;visibility:visible;pointer-events:auto}
+.nav-mobile-panel a{color:rgba(255,255,255,.9);text-decoration:none;font-family:var(--display);font-size:32px;font-weight:400;letter-spacing:1px;transform:translateY(20px);opacity:0;transition:color .3s,transform .6s cubic-bezier(.2,.9,.22,1),opacity .6s cubic-bezier(.2,.9,.22,1)}
+.nav-mobile-panel.is-open a{transform:translateY(0);opacity:1}
+.nav-mobile-panel.is-open a:nth-child(1){transition-delay:.15s}
+.nav-mobile-panel.is-open a:nth-child(2){transition-delay:.22s}
+.nav-mobile-panel.is-open a:nth-child(3){transition-delay:.29s}
+.nav-mobile-panel.is-open a:nth-child(4){transition-delay:.36s}
+.nav-mobile-panel.is-open a:nth-child(5){transition-delay:.43s}
+.nav-mobile-panel a:hover{color:var(--sienna)}
+
+@media(max-width:900px){
+.section{padding:64px 24px}.nav{padding:14px 24px}.nav-links,.nav-cta{display:none} .nav-toggle{display:block}
 .nearby-grid{grid-template-columns:1fr}.time-badges{flex-direction:column}
 .footer-grid{grid-template-columns:1fr}.page-hero-title{font-size:36px}
 }
@@ -116,7 +132,16 @@ body{font-family:var(--body);color:var(--rich);background:var(--white);-webkit-f
     <li><a href="index.html#gallery">Thư viện</a></li>
   </ul>
   <a href="Grand_Era_05_Contact.html" class="nav-cta" style="text-decoration:none">Liên hệ</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+<!-- MOBILE NAV PANEL -->
+<div class="nav-mobile-panel" id="navMobilePanel">
+  <a href="Grand_Era_03_Amenities.html">Tiện ích</a>
+  <a href="Grand_Era_02_Residences.html">Căn hộ</a>
+  <a href="Grand_Era_04_Connect.html">Vị trí</a>
+  <a href="index.html#gallery">Thư viện</a>
+  <a href="Grand_Era_05_Contact.html">Liên hệ</a>
+</div>
 
 <!-- HERO -->
 <section class="page-hero">
@@ -230,6 +255,25 @@ body{font-family:var(--body);color:var(--rich);background:var(--white);-webkit-f
 </footer>
 
 <script>
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navPanel = document.getElementById('navMobilePanel');
+if (navToggle && navPanel) {
+  const closeMenu = () => {
+    navToggle.classList.remove('is-open');
+    navPanel.classList.remove('is-open');
+    document.body.style.overflow = '';
+  };
+  navToggle.addEventListener('click', () => {
+    const willOpen = !navToggle.classList.contains('is-open');
+    navToggle.classList.toggle('is-open', willOpen);
+    navPanel.classList.toggle('is-open', willOpen);
+    document.body.style.overflow = willOpen ? 'hidden' : '';
+  });
+  navPanel.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+}
+
 // Nav scroll effect
 (function(){
   const nav = document.getElementById('nav');
