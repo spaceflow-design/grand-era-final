@@ -305,13 +305,15 @@ body {
 }
 
 /* ===== AMENITIES ===== */
-.amenities { background: var(--beige); position: relative; overflow: hidden; }
+.amenities { background: var(--beige); position: relative; overflow: hidden; padding-bottom: 340px; }
 .amenities::after {
-  content: ''; position: absolute; bottom: -30px; right: -30px;
-  width: 460px; height: 460px;
+  content: ''; position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  width: 340px; height: 340px;
   background: url('../brand-graphic/pattern-in-white.png') no-repeat center / contain;
   pointer-events: none;
 }
+.amenities-header, .amenities-scroll { position: relative; z-index: 1; }
 .amenities-header {
   max-width: 1200px; margin: 0 auto 48px;
   display: flex; justify-content: space-between; align-items: flex-start;
@@ -491,14 +493,15 @@ body {
 /* ===== FOOTER ===== */
 .footer {
   background: var(--tanned-leather); color: rgba(255,255,255,0.6);
-  padding: 64px 48px 32px; position: relative; overflow: hidden;
+  padding: 64px 48px 240px; position: relative; overflow: hidden;
 }
 .footer::after {
-  content: ''; position: absolute; bottom: -30px; right: -30px;
-  width: 400px; height: 400px;
+  content: ''; position: absolute; bottom: 10px; right: 0;
+  width: 220px; height: 220px;
   background: url('../brand-graphic/pattern-in-dark.png') no-repeat center / contain;
   pointer-events: none;
 }
+.footer-grid, .footer-bottom { position: relative; z-index: 1; }
 .footer-grid {
   max-width: 1200px; margin: 0 auto;
   display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px;
@@ -553,7 +556,7 @@ body {
 
 @media (max-width: 900px) {
   .section { padding: 80px 24px; }
-  .nav { padding: 16px 24px; }
+  .nav, .nav.scrolled { padding: 16px 24px; }
   .nav-links, .nav-cta { display: none; }
   .nav-toggle { display: block; }
   .brand-story-grid, .conn-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -566,21 +569,22 @@ body {
   /* Pattern responsive: connectivity — hide entirely on mobile (overlaps text) */
   .connectivity::after { display: none; }
 
-  /* Pattern responsive: footer — shrink & reposition to empty corner */
-  .footer::after { width: 180px; height: 180px; bottom: -10px; right: -20px; opacity: .6; }
+  /* Pattern responsive: footer — shrink and keep dedicated zone */
+  .footer { padding-bottom: 180px; }
+  .footer::after { width: 160px; height: 160px; bottom: 10px; right: 0; }
 
-  /* Pattern responsive: amenities — move pattern below cards, smaller */
-  .amenities { padding-bottom: 280px; }
+  /* Pattern responsive: amenities — smaller + still below cards */
+  .amenities { padding-bottom: 240px; }
   .amenities::after {
-    width: 220px; height: 220px; bottom: 40px; right: 50%;
-    transform: translateX(50%);
+    width: 220px; height: 220px; bottom: 30px;
   }
 }
 
 @media (max-width: 480px) {
-  .footer::after { width: 140px; height: 140px; }
-  .amenities::after { width: 180px; height: 180px; bottom: 30px; }
-  .amenities { padding-bottom: 240px; }
+  .footer { padding-bottom: 160px; }
+  .footer::after { width: 130px; height: 130px; }
+  .amenities::after { width: 180px; height: 180px; }
+  .amenities { padding-bottom: 210px; }
 }
 </style>
 </head>
