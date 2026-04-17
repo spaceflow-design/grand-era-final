@@ -569,22 +569,26 @@ body {
   /* Pattern responsive: connectivity — hide entirely on mobile (overlaps text) */
   .connectivity::after { display: none; }
 
-  /* Pattern responsive: footer — shrink and keep dedicated zone */
-  .footer { padding-bottom: 180px; }
-  .footer::after { width: 160px; height: 160px; bottom: 10px; right: 0; }
+  /* Pattern responsive: footer — small corner flourish, no dedicated zone */
+  .footer { padding-bottom: 48px; }
+  .footer::after {
+    width: 120px; height: 120px;
+    bottom: -20px; right: -20px;
+    top: auto; left: auto; transform: none;
+  }
 
-  /* Pattern responsive: amenities — smaller + still below cards */
-  .amenities { padding-bottom: 240px; }
+  /* Pattern responsive: amenities — small corner flourish below cards, no dedicated zone */
+  .amenities { padding-bottom: 80px; }
   .amenities::after {
-    width: 220px; height: 220px; bottom: 30px;
+    width: 120px; height: 120px;
+    bottom: -20px; right: -20px;
+    top: auto; left: auto; transform: none;
   }
 }
 
 @media (max-width: 480px) {
-  .footer { padding-bottom: 160px; }
-  .footer::after { width: 130px; height: 130px; }
-  .amenities::after { width: 180px; height: 180px; }
-  .amenities { padding-bottom: 210px; }
+  .footer::after { width: 100px; height: 100px; bottom: -16px; right: -16px; }
+  .amenities::after { width: 100px; height: 100px; bottom: -16px; right: -16px; }
 }
 </style>
 </head>
